@@ -259,6 +259,6 @@ app.get("/authorsingle/:i",(req,res)=>{
 });
 
 
-app.listen(3000,()=>{
+app.listen(process.envPORT || 3000,()=>{
     console.log("server is up");
 });
