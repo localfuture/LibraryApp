@@ -1,10 +1,11 @@
+//jshint esversion:6
 var express = require("express");
 var app = express();
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
 
-navbar =[{link:"link of the book1",title:"book title1"},
-{link:"link of the book2",title:"book title2"}];
+navbar =[{link:"/books",title:"Books"},
+{link:"/authors",title:"Authors"}];
 
 books = [{
     "isbn": "9781593275846",
@@ -118,6 +119,124 @@ books = [{
   }
   ];
 
+  authors = [{
+    "author": "Chinua Achebe",
+    "country": "Nigeria",
+    "imageLink": "/images/8051.jpg",
+    "language": "English",
+    "link": "https://en.wikipedia.org/wiki/Things_Fall_Apart\n",
+    "pages": 209,
+    "title": "Things Fall Apart",
+    "year": 1958,
+    "description":"Chinua Achebe was a Nigerian novelist, poet, professor, and critic. His first novel Things Fall Apart, often considered his masterpiece, is the most widely read book in modern African literature.",
+  },
+  {
+    "author": "Hans Christian Andersen",
+    "country": "Denmark",
+    "imageLink": "/images/Hans Christian Andersen.jpg",
+    "language": "Danish",
+    "link": "https://en.wikipedia.org/wiki/Fairy_Tales_Told_for_Children._First_Collection.\n",
+    "pages": 784,
+    "title": "Fairy tales",
+    "year": 1836,
+    "description":"Hans Christian Andersen was a Danish author. Although a prolific writer of plays, travelogues, novels, and poems, he is best remembered for his fairy tales. Andersen's popularity is not limited to children; his stories express themes that transcend age and nationality.",
+
+  },
+  {
+    "author": "Dante Alighieri",
+    "country": "Italy",
+    "imageLink": "/images/Dante Alighieri.jpg",
+    "language": "Italian",
+    "link": "https://en.wikipedia.org/wiki/Divine_Comedy\n",
+    "pages": 928,
+    "title": "The Divine Comedy",
+    "year": 1315,
+    "description":"Durante di Alighiero degli Alighieri, commonly known by his pen name Dante Alighieri or simply as Dante, was an Italian poet.",
+  },
+  {
+    "author": "Jane Austen",
+    "country": "United Kingdom",
+    "imageLink": "/images/jane austen.jpg",
+    "language": "English",
+    "link": "https://en.wikipedia.org/wiki/Pride_and_Prejudice\n",
+    "pages": 226,
+    "title": "Pride and Prejudice",
+    "year": 1813,
+    "description":"Jane Austen was an English novelist known primarily for her six major novels, which interpret, critique and comment upon the British landed gentry at the end of the 18th century. Austen's plots often explore the dependence of women on marriage in the pursuit of favourable social standing and economic security.",
+
+  },
+  {
+    "author": "Honor\u00e9 de Balzac",
+    "country": "France",
+    "imageLink": "/images/Honoré de Balzac.jpg",
+    "language": "French",
+    "link": "https://en.wikipedia.org/wiki/Le_P%C3%A8re_Goriot\n",
+    "pages": 443,
+    "title": "Le P\u00e8re Goriot",
+    "year": 1835,
+    "description":"Honoré de Balzac was a French novelist and playwright. The novel sequence La Comédie humaine, which presents a panorama of post-Napoleonic French life, is generally viewed as his magnum opus.",
+
+  },
+  {
+    "author": "Samuel Beckett",
+    "country": "Republic of Ireland",
+    "imageLink": "/images/Samuel_Beckett.jpg",
+    "language": "French, English",
+    "link": "https://en.wikipedia.org/wiki/Molloy_(novel)\n",
+    "pages": 256,
+    "title": "Molloy, Malone Dies, The Unnamable, the trilogy",
+    "year": 1952,
+    "description":"Samuel Barclay Beckett was an Irish novelist, playwright, short story writer, theatre director, poet, and literary translator. A resident of Paris for most of his adult life, he wrote in both English and French.",
+
+  },
+  {
+    "author": "Walt Whitman",
+    "country": "United States",
+    "imageLink": "/images/walt-whitman.jpg",
+    "language": "English",
+    "link": "https://en.wikipedia.org/wiki/Leaves_of_Grass\n",
+    "pages": 152,
+    "title": "Leaves of Grass",
+    "year": 1855,
+    "description":"Walt Whitman was an American poet, essayist, and journalist. A humanist, he was a part of the transition between transcendentalism and realism, incorporating both views in his works. Whitman is among the most influential poets in the American canon, often called the father of free verse.",
+
+  },
+  {
+    "author": "Virginia Woolf",
+    "country": "United Kingdom",
+    "imageLink": "/images/virginia woolf.jpg",
+    "language": "English",
+    "link": "https://en.wikipedia.org/wiki/Mrs_Dalloway\n",
+    "pages": 216,
+    "title": "Mrs Dalloway",
+    "year": 1925,
+    "description":"Adeline Virginia Woolf was an English writer, considered one of the most important modernist 20th-century authors and also a pioneer in the use of stream of consciousness as a narrative device. Woolf was born into an affluent household in South Kensington, London, the seventh child in a blended family of eight.",
+
+  },
+  {
+    "author": "Marguerite Yourcenar",
+    "country": "France/Belgium",
+    "imageLink": "/images/marguerite.jpg",
+    "language": "French",
+    "link": "https://en.wikipedia.org/wiki/Memoirs_of_Hadrian\n",
+    "pages": 408,
+    "title": "Memoirs of Hadrian",
+    "year": 1951,
+    "description":"Marguerite Yourcenar was a French novelist and essayist born in Brussels, Belgium, who became a US citizen in 1947. Winner of the Prix Femina and the Erasmus Prize, she was the first woman elected to the Académie française, in 1980, and the seventeenth person to occupy seat 3.",
+
+  },
+  {
+     "author": "Mark Twain",
+     "country": "United States",
+     "imageLink": "/images/mark.jpg",
+     "language": "English",
+     "link": "https://en.wikipedia.org/wiki/Adventures_of_Huckleberry_Finn\n",
+     "pages": 224,
+     "title": "The Adventures of Huckleberry Finn",
+     "year": 1884,
+     "description":"Samuel Langhorne Clemens, known by his pen name Mark Twain, was an American writer, humorist, entrepreneur, publisher, and lecturer. He was lauded as the greatest humorist this country has produced, and William Faulkner called him the father of American literature.",
+   }];
+
 app.get("/",(req,res)=>{
     res.render("index",{navbar:navbar,title:"Library"});
 });
@@ -129,6 +248,16 @@ app.get("/single/:id",(req,res)=>{
     const x=req.params.id;
     res.render("single",{books:books[x]});
 });
+
+app.get("/authors",(req,res)=>{
+  res.render("authors",{title:"Authors", authors:authors});
+});
+
+app.get("/authorsingle/:i",(req,res)=>{
+    const y=req.params.i;
+    res.render("authorsingle",{title:"Author Details",authors:authors[y]});
+});
+
 
 app.listen(3000,()=>{
     console.log("server is up");

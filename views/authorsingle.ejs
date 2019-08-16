@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-	<title><%=books.title%></title>
+	<title><%=title%></title>
 	<meta name="generator" content="Bootply" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -93,20 +93,20 @@
 
 
 							<!--/stories-->
-
 							<div class="row">
 								<br>
-
+								<div class="col-md-2 col-sm-3 text-center">
+									<a class="story-title" href="#"><img alt="" src="<%=authors.imageLink%>" style="width:100px;height:100px" class="img-circle"></a>
+								</div>
 								<div class="col-md-10 col-sm-9">
-
-									<h4><%=books.author%></h4>
-									<p><%=books.description%></p>
+									<h3><%=authors.author%></h3>
 									<div class="row">
 										<div class="col-xs-9">
-
-											<small style="font-family:courier,'new courier';" class="text-muted">| <%=books.publisher%> | </small>
-											<small style="font-family:courier,'new courier';" class="text-muted"><%=books.published%> | </small>
-											<small style="font-family:courier,'new courier';" class="text-muted"><%=books.isbn%> | </small>
+											<h4><span class="label label-default"><%=authors.language%></span></h4>
+											<p><%=authors.description%></p>
+											<small style="font-family:courier,'new courier';" class="text-muted">| <%=authors.title%> | </small>
+											<small style="font-family:courier,'new courier';" class="text-muted"><%=authors.year%> | </small>
+											<small style="font-family:courier,'new courier';" class="text-muted"><%=authors.country%> | </small>
 
 
 										</div>
@@ -117,6 +117,7 @@
 							</div>
 							<hr>
 
+
 							<!--/stories-->
 
 
@@ -124,9 +125,6 @@
 
 						</div>
 					</div>
-
-
-
 				</div>
 				<!--/col-12-->
 			</div>
