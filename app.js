@@ -5,7 +5,10 @@ app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
 
 navbar =[{link:"/books",title:"Books"},
-{link:"/authors",title:"Authors"}];
+{link:"/authors",title:"Authors"},
+{link:"/login",title:"Log In"},
+{link:"/registration",title:"Register"},
+{link:"/addbooks",title:"Add Books"}];
 
 books = [{
     "isbn": "9781593275846",
@@ -257,6 +260,19 @@ app.get("/authorsingle/:i",(req,res)=>{
     const y=req.params.i;
     res.render("authorsingle",{title:"Author Details",authors:authors[y]});
 });
+
+app.get("/login",(req,res)=>{
+  res.render("login");
+});
+
+app.get("/registration",(req,res)=>{
+  res.render("registration",{"district":["Thiruvananthapuram","Kollam","Alappuzha","Pathanamthitta","Kottayam","Idukki","Ernakulam","Thrissur","Palakkad","Malappuram","Kozhikode","Wayanadu","Kannur","Kasaragod"]});
+});
+
+app.get("/addbooks",(req,res)=>{
+  res.render("newbosk");
+});
+
 
 
 app.listen(process.env.PORT || 3000,()=>{
