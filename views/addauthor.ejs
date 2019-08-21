@@ -45,31 +45,7 @@
 
   <!-- registration form -->
   <div class="container">
-    <form method="POST" action="/addTheBooks">
-      <div class="row">
-        <div class="col">
-          <label>ISBN</label>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" name="isbn">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label>title</label>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" name="title">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label>subtitle</label>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" name="subtitle">
-        </div>
-      </div>
+    <form method="POST" action="/authorAddApi">
       <div class="row">
         <div class="col">
           <label>Author</label>
@@ -80,18 +56,34 @@
       </div>
       <div class="row">
         <div class="col">
-          <label>Published</label>
+          <label>country</label>
         </div>
         <div class="col">
-          <input type="text" class="form-control" name="published">
+          <input type="text" class="form-control" name="country">
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <label>publisher</label>
+          <label>imageLink</label>
         </div>
         <div class="col">
-          <input type="text" class="form-control" name="publisher">
+          <input type="text" class="form-control" name="imagelink">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>language</label>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" name="language">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>link</label>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" name="link">
         </div>
       </div>
       <div class="row">
@@ -104,18 +96,26 @@
       </div>
       <div class="row">
         <div class="col">
-          <label>Description</label>
+          <label>title</label>
         </div>
         <div class="col">
-          <input type="text" class="form-control" name="description">
+          <input type="text" class="form-control" name="title">
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <label>website</label>
+          <label>year</label>
         </div>
         <div class="col">
-          <input type="text" class="form-control" name="website">
+          <input type="text" class="form-control" name="year">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>description</label>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" name="description">
         </div>
       </div>
       <button type="submit">Submit</button>

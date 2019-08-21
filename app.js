@@ -1,8 +1,43 @@
 //jshint esversion:6
 var express = require("express");
 var app = express();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var request = require('request');
+
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
+mongoose.connect("mongodb://localhost:27017/bookDB");
+
+var bookCollection = mongoose.model("bookdetails",{
+  isbn: String,
+  title: String,
+  subtitle: String,
+  author: String,
+  published: String,
+  publisher: String,
+  pages: String,
+  description: String,
+  website: String
+});
+
+var authorCollection = mongoose.model("authordetails",{
+    author : String,
+    country : String,
+     imageLink : String,
+    language : String,
+    link : String,
+    pages : String,
+    title: String,
+    year : String,
+    description : String
+});
+
+
+
 
 navbar =[{link:"/books",title:"Books"},
 {link:"/authors",title:"Authors"},
@@ -122,7 +157,7 @@ books = [{
   }
   ];
 
-  authors = [{
+  const authors = [{
     "author": "Chinua Achebe",
     "country": "Nigeria",
     "imageLink": "/images/8051.jpg",
@@ -239,20 +274,55 @@ books = [{
      "year": 1884,
      "description":"Samuel Langhorne Clemens, known by his pen name Mark Twain, was an American writer, humorist, entrepreneur, publisher, and lecturer. He was lauded as the greatest humorist this country has produced, and William Faulkner called him the father of American literature.",
    }];
-
+   
 app.get("/",(req,res)=>{
     res.render("index",{navbar:navbar,title:"Library"});
 });
 
+
+var api = "http://localhost:3000/getDataApi";
+
+
+
 app.get("/books",(req,res)=>{
-    res.render("books",{title:"Books", books:books});
+
+  request(api,(error,response,body)=>{
+    console.log(error);
+    console.log(response);
+    var data = JSON.parse(body);
+    res.render("books",{title:"Books", books:data});
+  });
+  //res.render("books",{title:"Books", books:books});
 });
+
+app.get("/readmoreApi/:id",(req,res)=>{
+  var y = req.params.id;
+  bookCollection.find({_id:y},(error,data)=>{
+    if(error){
+      console.log(error);
+    }else{
+      res.send(data);
+    }
+  });
+});
+
+
+var readmoreapi = "http://localhost:3000/readmoreApi/"
+
 app.get("/single/:id",(req,res)=>{
     const x=req.params.id;
-    res.render("single",{books:books[x]});
+    request(readmoreapi+x,(error,response,body)=>{
+      console.log(error);
+      console.log(response);
+      var data = JSON.parse(body);
+      res.render("single",{books:data[0]});
+
+    });
+    //res.render("single",{books:books[x]});
 });
 
 app.get("/authors",(req,res)=>{
+  
   res.render("authors",{title:"Authors", authors:authors});
 });
 
@@ -271,6 +341,35 @@ app.get("/registration",(req,res)=>{
 
 app.get("/addbooks",(req,res)=>{
   res.render("newbosk");
+});
+
+app.post("/addTheBooks",(req,res)=>{
+  var book = new bookCollection(req.body);
+  
+  book.save((error,data)=>{
+    if(error){
+      console.log(error);
+    }else{
+      console.log("data inserted");
+      //res.send(data);
+    }
+  })
+})
+
+app.get("/addAuthors",(req,res)=>{
+  res.render("addauthor");
+});
+
+app.post("/authorAddApi",(req,res)=>{
+  var author = new authorCollection(req.body);
+  author.save((error,data)=>{
+    if(error){
+      console.log(error);
+    }else{
+      console.log("data inserted");
+      //res.send(data);
+    }
+  })
 });
 
 
