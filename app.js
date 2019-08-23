@@ -10,7 +10,7 @@ app.use(express.static(__dirname+"/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-mongoose.connect("mongodb://localhost:27017/bookDB");
+mongoose.connect("mongodb+srv://anand:unicornb1331@cluster0-0tquo.mongodb.net/test?retryWrites=true&w=majority");
 
 var bookCollection = mongoose.model("bookdetails",{
   isbn: String,
@@ -292,7 +292,7 @@ app.get("/getDataApi",(req,res)=>{
 
 
 
-var api = "http://localhost:3000/getDataApi";
+var api = "https://libraryappdatabase.herokuapp.com/getDataApi";
 
 
 
@@ -319,7 +319,7 @@ app.get("/readmoreApi/:id",(req,res)=>{
 });
 
 
-var readmoreapi = "http://localhost:3000/readmoreApi/"
+var readmoreapi = "https://libraryappdatabase.herokuapp.com/readmoreApi/"
 
 app.get("/single/:id",(req,res)=>{
     const x=req.params.id;
@@ -394,7 +394,7 @@ app.get("/showAuthors",(req,res)=>{
 
 
 
-const authorFullDisplayApi = "http://localhost:3000/showAuthors"
+const authorFullDisplayApi = "https://libraryappdatabase.herokuapp.com/showAuthors"
 
 
 app.get("/authors",(req,res)=>{
@@ -421,7 +421,7 @@ app.get("/readsingleauthor/:id",(req,res)=>{
   });
 });
 
-const readMoreAuthor = "http://localhost:3000/readsingleauthor/"
+const readMoreAuthor = "https://libraryappdatabase.herokuapp.com/readsingleauthor/"
 
 app.get("/authorsingle/:i",(req,res)=>{
   const y=req.params.i;
