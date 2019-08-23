@@ -27,7 +27,7 @@ var bookCollection = mongoose.model("bookdetails",{
 var authorCollection = mongoose.model("authordetails",{
     author : String,
     country : String,
-     imageLink : String,
+    imageLink : String,
     language : String,
     link : String,
     pages : String,
@@ -43,7 +43,8 @@ navbar =[{link:"/books",title:"Books"},
 {link:"/authors",title:"Authors"},
 {link:"/login",title:"Log In"},
 {link:"/registration",title:"Register"},
-{link:"/addbooks",title:"Add Books"}];
+{link:"/addbooks",title:"Add Books"},
+{link:"/addAuthors",title:"Add Authors"}];
 
 books = [{
     "isbn": "9781593275846",
@@ -279,6 +280,17 @@ app.get("/",(req,res)=>{
     res.render("index",{navbar:navbar,title:"Library"});
 });
 
+app.get("/getDataApi",(req,res)=>{
+  bookCollection.find((error,data)=>{
+    if(error){
+      console.log(error);
+    }else{
+      res.send(data);
+    }
+  });
+});
+
+
 
 var api = "http://localhost:3000/getDataApi";
 
@@ -321,15 +333,9 @@ app.get("/single/:id",(req,res)=>{
     //res.render("single",{books:books[x]});
 });
 
-app.get("/authors",(req,res)=>{
-  
-  res.render("authors",{title:"Authors", authors:authors});
-});
 
-app.get("/authorsingle/:i",(req,res)=>{
-    const y=req.params.i;
-    res.render("authorsingle",{title:"Author Details",authors:authors[y]});
-});
+
+
 
 app.get("/login",(req,res)=>{
   res.render("login");
@@ -367,11 +373,67 @@ app.post("/authorAddApi",(req,res)=>{
       console.log(error);
     }else{
       console.log("data inserted");
-      //res.send(data);
+      res.redirect("/");
     }
   })
 });
 
+
+app.get("/showAuthors",(req,res)=>{
+  authorCollection.find((error,data)=>{
+    if (error){
+      console.log(error);
+    }else {
+      res.send(data);
+    }
+  });
+});
+
+
+
+
+
+
+const authorFullDisplayApi = "http://localhost:3000/showAuthors"
+
+
+app.get("/authors",(req,res)=>{
+
+  request(authorFullDisplayApi,(error,response,body)=>{
+    console.log(error);
+    console.log(response);
+    var data = JSON.parse(body);
+    res.render("authors",{title:"Authors", authors: data});
+
+  })
+  
+});
+
+
+app.get("/readsingleauthor/:id",(req,res)=>{
+  var y = req.params.id;
+  authorCollection.find({_id:y},(error,data)=>{
+    if (error){
+      console.log(error);
+    }else {
+      res.send(data);
+    }
+  });
+});
+
+const readMoreAuthor = "http://localhost:3000/readsingleauthor/"
+
+app.get("/authorsingle/:i",(req,res)=>{
+  const y=req.params.i;
+
+  request(readMoreAuthor + y,(error,response,body)=>{
+    console.log(error);
+    console.timeLog(response);
+    var data = JSON.parse(body);
+    res.render("authorsingle",{title:"Author Details",authors: data[0] });
+  })
+  //res.render(readMoreAuthor + i,{title:"Author Details",authors:authors[y]});
+});
 
 
 app.listen(process.env.PORT || 3000,()=>{
